@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Writing Palette — Differentiated EFL Writing Tools</title>
+<meta name="description" content="Two adaptive rubrics and a 1,000+ prompt topic bank for differentiated EFL paragraph and essay instruction across seven rhetorical modes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ctext y='32' font-size='32'%3E%F0%9F%8E%A8%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF7EF;
+  --paper-alt:#F5EFE2;
+  --ink:#3A362F;
+  --ink-soft:#6B655C;
+  --border:#E4DBC9;
+  --blue-bg:#C9DCEA;    --blue-tx:#2B5578;
+  --green-bg:#C9E0C4;   --green-tx:#2F5230;
+  --lavender-bg:#D8CEEA;--lavender-tx:#4A3E75;
+  --blush-bg:#F0CBD8;   --blush-tx:#7A3550;
+  --butter-bg:#F1E1AC;  --butter-tx:#6B551A;
+  --peach-bg:#F3D8C7;   --peach-tx:#7A4020;
+  --mint-bg:#DCEFE7;    --mint-tx:#0F5C46;
+  --radius-lg:20px;
+  --radius-md:12px;
+  --radius-sm:8px;
+  --font-display:'Fraunces', serif;
+  --font-body:'Karla', sans-serif;
+  --font-hand:'Caveat', cursive;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.4;}
+button{font:inherit;}
+h1,h2,h3{font-family:var(--font-display);}
+
+/* ---------- nav ---------- */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:1rem 2rem;transition:background .25s ease,box-shadow .25s ease;}
+.site-nav.scrolled{background:rgba(251,247,239,.94);backdrop-filter:blur(8px);box-shadow:0 1px 3px rgba(58,54,47,.08);}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.nav-logo{display:flex;align-items:center;gap:.55rem;}
+.nav-logo .logo-icon{width:34px;height:34px;flex:0 0 auto;}
+.nav-title{font-weight:600;font-size:1.15rem;}
+.nav-menu{display:flex;gap:.3rem;flex-wrap:wrap;}
+.nav-link{font-weight:700;font-size:.86rem;padding:.5rem 1rem;border-radius:20px;border:none;background:transparent;color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;}
+.nav-link:hover{color:var(--ink);}
+.nav-link.active{background:var(--ink);color:var(--paper);}
+.nav-link:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+/* ---------- hero ---------- */
+.hero-full{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:7rem 1.5rem 5rem;}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(1px);opacity:.55;}
+.hero-icon{position:absolute;opacity:.92;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.floaty{animation:floaty 5s ease-in-out infinite;}
+.floaty-slow{animation:floaty 7s ease-in-out infinite;}
+.hero-full-content{position:relative;z-index:1;max-width:720px;}
+.eyebrow{font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green-tx);background:var(--green-bg);display:inline-block;padding:.35rem 1rem;border-radius:20px;margin-bottom:1.3rem;}
+.hero-full h1{font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.12;margin:0 0 1.1rem;font-weight:600;}
+.hero-full-sub{color:var(--ink-soft);font-size:1.08rem;line-height:1.65;max-width:52ch;margin:0 auto 1.9rem;}
+.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);background:none;border:none;font-size:1.9rem;line-height:1;color:var(--ink-soft);cursor:pointer;animation:bounce 2s infinite;padding:.3rem .6rem;}
+@keyframes bounce{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+.scroll-cue:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.revealed{opacity:1;transform:none;}
+.features .feature-card:nth-child(2){transition-delay:.08s;}
+.features .feature-card:nth-child(3){transition-delay:.16s;}
+.features .feature-card:nth-child(4){transition-delay:.24s;}
+.testimonial-grid .testimonial-card:nth-child(2){transition-delay:.08s;}
+.testimonial-grid .testimonial-card:nth-child(3){transition-delay:.16s;}
+
+/* ---------- folder / panels ---------- */
+.folder{max-width:1100px;margin:96px auto 3rem;background:var(--paper);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem clamp(1.2rem,4vw,2.4rem);box-shadow:0 1px 3px rgba(58,54,47,.05);}
+.panel{display:none;}
+.panel.active{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+/* ---------- home sections ---------- */
+.home-section{padding:2.6rem 0;}
+.home-section:first-of-type{padding-top:.5rem;}
+.section-heading{font-size:1.55rem;text-align:center;margin:0 0 .5rem;font-weight:600;}
+.section-sub{color:var(--ink-soft);text-align:center;max-width:60ch;margin:0 auto 2rem;font-size:.93rem;}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.1rem;}
+.feature-card{background:var(--paper-alt);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.3rem;}
+.feature-card .ico{width:36px;height:36px;margin-bottom:.7rem;}
+.feature-card h3{font-size:1.05rem;margin:0 0 .4rem;font-weight:600;}
+.feature-card p{font-size:.87rem;color:var(--ink-soft);line-height:1.55;margin:0;}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;text-align:center;padding:1.6rem;background:var(--paper-alt);border:1px solid var(--border);border-radius:var(--radius-md);}
+.stat-num{display:block;font-family:var(--font-display);font-size:2.3rem;font-weight:600;color:var(--ink);}
+.stat-label{font-size:.78rem;color:var(--ink-soft);font-weight:700;margin-top:.2rem;}
+
+.testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.1rem;}
+.testimonial-card{background:var(--paper-alt);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.3rem;display:flex;flex-direction:column;gap:.8rem;}
+.testimonial-top{display:flex;align-items:center;gap:.6rem;}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:1.05rem;flex:0 0 auto;}
+.quote{font-size:.9rem;line-height:1.6;color:var(--ink);margin:0;}
+.author{font-size:.78rem;color:var(--ink-soft);margin:0;font-weight:700;}
+
+.final-cta{text-align:center;padding:2.6rem 1rem .5rem;}
+.final-cta h2{font-size:1.6rem;margin:0 0 .6rem;font-weight:600;}
+.final-cta p{color:var(--ink-soft);margin:0 0 1.4rem;}
+
+.cta-row{display:flex;gap:.7rem;flex-wrap:wrap;}
+.btn{font-weight:700;font-size:.9rem;padding:.7rem 1.35rem;border-radius:30px;border:1px solid var(--ink);cursor:pointer;transition:transform .1s;}
+.btn-primary{background:var(--ink);color:var(--paper);}
+.btn-secondary{background:transparent;color:var(--ink);}
+.btn:hover{transform:translateY(-1px);}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+/* ---------- tool panels ---------- */
+.panel-heading{font-size:1.5rem;margin:0 0 .3rem;font-weight:600;}
+.panel-sub{color:var(--ink-soft);font-size:.92rem;margin:0 0 1.3rem;max-width:66ch;}
+
+.filters{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.4rem;}
+.filter-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
+.filter-label{font-size:.72rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;min-width:74px;}
+.chip{font-size:.82rem;font-weight:700;padding:.4rem 1rem;border-radius:20px;border:1px solid var(--border);background:var(--paper-alt);color:var(--ink-soft);cursor:pointer;}
+.chip.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+.total-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:.9rem 1.1rem;background:var(--paper-alt);border-radius:var(--radius-md);margin-bottom:1.5rem;}
+.total-num{font-family:var(--font-display);font-size:2rem;font-weight:600;}
+.total-lbl{font-size:.78rem;color:var(--ink-soft);}
+.progress{height:7px;background:var(--border);border-radius:4px;flex:1 1 110px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:4px;background:var(--green-tx);transition:width .3s;}
+.grade-pill{font-weight:700;font-size:.78rem;padding:.35rem 1rem;border-radius:20px;background:var(--paper);color:var(--ink-soft);}
+.tool-buttons{display:flex;gap:.5rem;flex-wrap:wrap;}
+.mini-btn{font-size:.78rem;font-weight:700;padding:.4rem 1rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--ink-soft);cursor:pointer;}
+.mini-btn.done{background:var(--green-bg);color:var(--green-tx);border-color:var(--green-tx);}
+.mini-btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+.crit-note{font-size:.78rem;color:var(--ink-soft);margin:0 0 1rem;}
+.crit-card{background:var(--paper-alt);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.1rem 1.3rem;margin-bottom:.85rem;}
+.crit-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:.5rem;}
+.crit-title{font-weight:700;font-size:.95rem;}
+.crit-badge{font-size:.7rem;font-weight:700;padding:2px 10px;border-radius:20px;white-space:nowrap;}
+.level-label{font-size:.72rem;color:var(--ink-soft);margin-bottom:.4rem;font-weight:700;}
+.star-row{display:flex;gap:6px;margin-bottom:.7rem;flex-wrap:wrap;}
+.star{width:38px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--paper);cursor:pointer;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);transition:background .1s,color .1s,border-color .1s;}
+.star:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+.remark-box{font-size:.85rem;color:var(--ink-soft);line-height:1.6;padding:.6rem .8rem;background:var(--paper);border:1px solid var(--border);border-radius:8px;min-height:40px;}
+.copy-mini{font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--ink-soft);cursor:pointer;margin-top:.55rem;}
+.copy-mini.done{background:var(--green-bg);color:var(--green-tx);border-color:var(--green-tx);}
+.copy-mini:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+.overall-summary{border-radius:var(--radius-md);padding:1rem 1.2rem;margin-top:.5rem;font-size:.9rem;line-height:1.7;display:none;}
+
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1rem;}
+.topic-card{background:var(--paper-alt);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.55rem;}
+.topic-badges{display:flex;gap:.4rem;flex-wrap:wrap;}
+.badge-sm{font-size:.66rem;font-weight:700;padding:2px 9px;border-radius:16px;white-space:nowrap;}
+.topic-prompt{font-size:.92rem;line-height:1.5;color:var(--ink);flex:1;margin:0;}
+.topic-scaffold{font-size:.78rem;color:var(--ink-soft);font-style:italic;line-height:1.5;margin:0;}
+.topic-scaffold strong{font-style:normal;}
+.topic-actions{display:flex;gap:.5rem;flex-wrap:wrap;}
+.empty-state{font-family:var(--font-hand);font-size:1.3rem;color:var(--ink-soft);text-align:center;padding:2.5rem 1rem;grid-column:1/-1;}
+.results-count{font-size:.78rem;color:var(--ink-soft);margin:0 0 .9rem;}
+
+.site-footer{text-align:center;font-size:.78rem;color:var(--ink-soft);padding:1.5rem 1rem 2.8rem;}
+.site-footer strong{color:var(--ink);}
+
+@media (max-width:640px){
+  .site-nav{padding:.8rem 1.1rem;}
+  .nav-title{font-size:1rem;}
+  .nav-link{padding:.45rem .8rem;font-size:.8rem;}
+  .hero-full{padding:6rem 1.1rem 4rem;}
+  .folder{margin-top:88px;padding:1.6rem 1.1rem;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
+  .reveal{opacity:1!important;transform:none!important;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 4C10.6 4 3 11.2 3 20c0 6.6 5 10 9 10 2 0 2.6-1.2 2-2.6-.6-1.3.2-2.4 1.6-2.4H21c8 0 16-5.6 16-15C37 6 29.4 4 20 4z" fill="var(--paper-alt)" stroke="var(--ink)" stroke-width="1.6"/>
+        <circle cx="12" cy="16" r="2.6" fill="var(--blue-bg)"/>
+        <circle cx="20" cy="11" r="2.6" fill="var(--blush-bg)"/>
+        <circle cx="28" cy="14" r="2.6" fill="var(--butter-bg)"/>
+        <circle cx="15" cy="24" r="2.6" fill="var(--green-bg)"/>
+      </svg>
+      <span class="nav-title">The Writing Palette</span>
+    </div>
+    <nav class="nav-menu" aria-label="Site sections">
+      <button class="nav-link active" data-panel="home">Home</button>
+      <button class="nav-link" data-panel="paragraphTool">Paragraph Tool</button>
+      <button class="nav-link" data-panel="essayTool">Essay Tool</button>
+      <button class="nav-link" data-panel="topics">Topic Bank</button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-full" id="heroFull">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-blob" style="width:340px;height:340px;background:var(--blue-bg);top:-90px;left:-110px;"></div>
+    <div class="hero-blob" style="width:260px;height:260px;background:var(--blush-bg);bottom:-70px;right:-70px;"></div>
+    <div class="hero-blob" style="width:190px;height:190px;background:var(--butter-bg);top:18%;right:6%;"></div>
+    <div class="hero-blob" style="width:170px;height:170px;background:var(--green-bg);bottom:8%;left:5%;"></div>
+    <svg class="hero-icon floaty" style="width:46px;top:16%;left:12%;" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="20,4 24,15 36,15 26,22 30,34 20,27 10,34 14,22 4,15 16,15" fill="var(--blue-bg)" stroke="var(--blue-tx)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+    <svg class="hero-icon floaty-slow" style="width:40px;top:64%;left:18%;" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="18" width="24" height="14" rx="3" fill="var(--blush-bg)"/><rect x="9" y="12" width="24" height="14" rx="3" fill="var(--butter-bg)"/><rect x="12" y="6" width="24" height="14" rx="3" fill="var(--green-bg)"/></svg>
+    <svg class="hero-icon floaty" style="width:42px;top:20%;right:14%;" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 10h28a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H16l-8 7v-7H6a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3z" fill="var(--lavender-bg)"/><circle cx="14" cy="19" r="1.6" fill="var(--lavender-tx)"/><circle cx="20" cy="19" r="1.6" fill="var(--lavender-tx)"/><circle cx="26" cy="19" r="1.6" fill="var(--lavender-tx)"/></svg>
+    <svg class="hero-icon floaty-slow" style="width:36px;bottom:18%;right:20%;" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="10" y="4" width="14" height="30" rx="4" fill="var(--butter-bg)" stroke="var(--peach-bg)" stroke-width="1.5" transform="rotate(25 17 19)"/></svg>
+  </div>
+  <div class="hero-full-content reveal">
+    <span class="eyebrow">Differentiated EFL Writing Toolkit</span>
+    <h1>One Palette.<br>Every Learner. Every Level.</h1>
+    <p class="hero-full-sub">Two adaptive rubrics, seven rhetorical modes, and 1,000+ tiered prompts — everything you need to differentiate EFL writing instruction, in one page.</p>
+    <div class="cta-row" style="justify-content:center;">
+      <button class="btn btn-primary" data-goto="paragraphTool">Get Started</button>
+      <button class="btn btn-secondary" id="exploreFeaturesBtn">Explore Features</button>
+    </div>
+  </div>
+  <button class="scroll-cue" id="scrollCue" aria-label="Scroll to explore features">⌄</button>
+</div>
+
+<div class="folder">
+
+  <!-- HOME -->
+  <section class="panel active" id="panel-home">
+
+    <section class="home-section" id="featuresSection">
+      <h2 class="section-heading reveal">Everything you need to differentiate</h2>
+      <p class="section-sub reveal">Built around Tomlinson's model of differentiated instruction — same learning goal, different paths to reach it.</p>
+      <div class="features">
+        <div class="feature-card reveal">
+          <svg class="ico" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="20,4 24,15 36,15 26,22 30,34 20,27 10,34 14,22 4,15 16,15" fill="var(--blue-bg)" stroke="var(--blue-tx)" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <h3>Two rubric tools</h3>
+          <p>Score a paragraph or an essay against seven criteria that adapt to the type you're teaching: narrative, descriptive, expository, persuasive, process, compare &amp; contrast, or cause &amp; effect.</p>
+        </div>
+        <div class="feature-card reveal">
+          <svg class="ico" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="6" y="18" width="24" height="14" rx="3" fill="var(--blush-bg)"/>
+            <rect x="9" y="12" width="24" height="14" rx="3" fill="var(--butter-bg)"/>
+            <rect x="12" y="6" width="24" height="14" rx="3" fill="var(--green-bg)"/>
+          </svg>
+          <h3>1,000+ tiered topics</h3>
+          <p>Writing prompts across seven genres and three readiness levels, each paired with a differentiation tip.</p>
+        </div>
+        <div class="feature-card reveal">
+          <svg class="ico" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 10h28a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H16l-8 7v-7H6a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3z" fill="var(--lavender-bg)"/>
+            <circle cx="14" cy="19" r="1.6" fill="var(--lavender-tx)"/>
+            <circle cx="20" cy="19" r="1.6" fill="var(--lavender-tx)"/>
+            <circle cx="26" cy="19" r="1.6" fill="var(--lavender-tx)"/>
+          </svg>
+          <h3>Copy-ready feedback</h3>
+          <p>Turn every score into a paste-ready comment for report cards, feedback sheets, or a learner's writing folder.</p>
+        </div>
+        <div class="feature-card reveal">
+          <svg class="ico" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="20" cy="20" r="15" fill="var(--mint-bg)" stroke="var(--mint-tx)" stroke-width="1.5"/>
+            <path d="M20 11v9l6 4" stroke="var(--mint-tx)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Flexible scoring scales</h3>
+          <p>Score out of 5, 10, or 20 — whichever matches your school's grading system, switchable any time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="stats reveal">
+        <div class="stat"><span class="stat-num" data-target="1008">0</span><span class="stat-label">Writing Prompts</span></div>
+        <div class="stat"><span class="stat-num" data-target="7">0</span><span class="stat-label">Rhetorical Modes</span></div>
+        <div class="stat"><span class="stat-num" data-target="14">0</span><span class="stat-label">Adaptive Rubrics</span></div>
+        <div class="stat"><span class="stat-num" data-target="3">0</span><span class="stat-label">Differentiation Tiers</span></div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <h2 class="section-heading reveal">What teachers say</h2>
+      <p class="section-sub reveal">Early, illustrative feedback from EFL teachers piloting the tools.</p>
+      <div class="testimonial-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-top">
+            <div class="avatar" style="background:var(--blue-bg);color:var(--blue-tx)">A</div>
+            <p class="author">Amina R.<br><span style="font-weight:400">Secondary EFL Teacher</span></p>
+          </div>
+          <p class="quote">"My learners finally get prompts that match where they are, not just what the textbook assumes."</p>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-top">
+            <div class="avatar" style="background:var(--blush-bg);color:var(--blush-tx)">K</div>
+            <p class="author">Karim B.<br><span style="font-weight:400">University Writing Instructor</span></p>
+          </div>
+          <p class="quote">"Switching between genres in the rubric took two clicks. Scoring forty essays felt far less repetitive."</p>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-top">
+            <div class="avatar" style="background:var(--butter-bg);color:var(--butter-tx)">S</div>
+            <p class="author">Sana M.<br><span style="font-weight:400">Preservice Teacher, ENS</span></p>
+          </div>
+          <p class="quote">"The scaffolding tip beside each prompt told me exactly how to adjust one task for three ability groups."</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta reveal">
+      <h2>Ready to differentiate your next writing lesson?</h2>
+      <p>Jump into a rubric, grab a tiered prompt, and get back to teaching.</p>
+      <button class="btn btn-primary" data-goto="topics">Browse the Topic Bank</button>
+    </section>
+
+  </section>
+
+  <!-- PARAGRAPH TOOL -->
+  <section class="panel" id="panel-paragraphTool">
+    <h2 class="panel-heading">Paragraph assessment tool</h2>
+    <p class="panel-sub">Choose the type of paragraph your learner wrote and a scoring scale, then rate it against seven criteria: three that adapt to that type, and four language criteria that stay constant.</p>
+
+    <div class="filter-row" style="margin-bottom:.9rem" id="genreChips-paragraph"></div>
+    <div class="filter-row" style="margin-bottom:1.5rem" id="scaleChips-paragraph"></div>
+
+    <div class="total-bar">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span class="total-num" id="total-paragraph">0</span>
+          <span style="font-size:15px;color:var(--ink-soft);font-weight:700">/ <span id="scaleLabel-paragraph">10</span></span>
+        </div>
+        <div class="total-lbl">total score</div>
+      </div>
+      <div class="progress"><div class="progress-fill" id="prog-paragraph" style="width:0%"></div></div>
+      <span class="grade-pill" id="gpill-paragraph">—</span>
+      <div class="tool-buttons">
+        <button class="mini-btn" id="copyAllBtn-paragraph">Copy full feedback</button>
+        <button class="mini-btn" id="resetBtn-paragraph">Reset</button>
+      </div>
+    </div>
+
+    <p class="crit-note">7 criteria rated 1–4 · 3 adapt to the paragraph type, 4 stay constant · pick a /5, /10, or /20 scale above</p>
+    <div id="critContainer-paragraph"></div>
+    <div class="overall-summary" id="overallSummary-paragraph"></div>
+  </section>
+
+  <!-- ESSAY TOOL -->
+  <section class="panel" id="panel-essayTool">
+    <h2 class="panel-heading">Essay assessment tool</h2>
+    <p class="panel-sub">Choose the type of essay your learner wrote and a scoring scale, then rate it against seven criteria: three that adapt to that type, and four language criteria that stay constant.</p>
+
+    <div class="filter-row" style="margin-bottom:.9rem" id="genreChips-essay"></div>
+    <div class="filter-row" style="margin-bottom:1.5rem" id="scaleChips-essay"></div>
+
+    <div class="total-bar">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span class="total-num" id="total-essay">0</span>
+          <span style="font-size:15px;color:var(--ink-soft);font-weight:700">/ <span id="scaleLabel-essay">10</span></span>
+        </div>
+        <div class="total-lbl">total score</div>
+      </div>
+      <div class="progress"><div class="progress-fill" id="prog-essay" style="width:0%"></div></div>
+      <span class="grade-pill" id="gpill-essay">—</span>
+      <div class="tool-buttons">
+        <button class="mini-btn" id="copyAllBtn-essay">Copy full feedback</button>
+        <button class="mini-btn" id="resetBtn-essay">Reset</button>
+      </div>
+    </div>
+
+    <p class="crit-note">7 criteria rated 1–4 · 3 adapt to the essay type, 4 stay constant · pick a /5, /10, or /20 scale above</p>
+    <div id="critContainer-essay"></div>
+    <div class="overall-summary" id="overallSummary-essay"></div>
+  </section>
+
+  <!-- TOPICS -->
+  <section class="panel" id="panel-topics">
+    <h2 class="panel-heading">Topic bank</h2>
+    <p class="panel-sub">Over 1,000 prompts across seven rhetorical modes and three readiness tiers. Filter by writing type, genre, or tier, copy a prompt, or jump straight to the matching rubric.</p>
+
+    <div class="filters">
+      <div class="filter-row">
+        <span class="filter-label">Type</span>
+        <button class="chip active" data-group="tool" data-value="all">All</button>
+        <button class="chip" data-group="tool" data-value="paragraph">Paragraph</button>
+        <button class="chip" data-group="tool" data-value="essay">Essay</button>
+      </div>
+      <div class="filter-row" id="genreFilterRow">
+        <span class="filter-label">Genre</span>
+        <button class="chip active" data-group="genre" data-value="all">All</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Tier</span>
+        <button class="chip active" data-group="tier" data-value="all">All</button>
+        <button class="chip" data-group="tier" data-value="foundational">Foundational</button>
+        <button class="chip" data-group="tier" data-value="developing">Developing</button>
+        <button class="chip" data-group="tier" data-value="advanced">Advanced</button>
+      </div>
+    </div>
+
+    <p class="results-count" id="resultsCount"></p>
+    <div class="topic-grid" id="topicGrid"></div>
+  </section>
+
+</div>
+
+<footer class="site-footer">Built for EFL teachers practicing differentiated writing instruction. Created by <strong>Maroua Gueffaf</strong>.</footer>
+
+<script>
+/* ========================================================================
+   GENRES — grounded in the standard rhetorical modes (narration, description,
+   exposition, persuasion), with process, comparison/contrast, and cause/effect
+   promoted from exposition's sub-modes for classroom-ready differentiation.
+   ======================================================================== */
+var GENRES = ["Narrative","Descriptive","Expository","Persuasive","Process","Compare & Contrast","Cause & Effect"];
+
+/* ---------- shared (constant) criteria ---------- */
+var PARA_SHARED = {
+  details:{title:"Supporting details",remarks:[
+    "No supporting details are given. The paragraph reads like a list of unsupported statements.",
+    "Only one or two supporting details are given, and they remain vague or generic.",
+    "Most points are supported with relevant details, though some remain underdeveloped.",
+    "Every point is supported with specific, well-chosen details that make the paragraph convincing and easy to follow."
+  ]},
+  grammar:{title:"Grammar & sentence accuracy",remarks:[
+    "Frequent grammar errors make the paragraph difficult to understand.",
+    "Basic sentences are mostly accurate, but errors appear whenever a more complex sentence is attempted.",
+    "Sentences are mostly accurate and show some variety, with occasional errors in more complex structures.",
+    "Sentences are grammatically accurate and purposefully varied to support the paragraph's meaning."
+  ]},
+  clarity:{title:"Clarity & organisation",remarks:[
+    "Ideas are very difficult to follow; sentences are incomplete, confusing, or contradictory.",
+    "Some ideas are clear, but others are hard to follow due to missing information or tangled structure.",
+    "Most ideas are clear, but one or two sentences require re-reading to understand.",
+    "Every idea is expressed clearly, and the paragraph is easy to follow from start to finish."
+  ]},
+  vocab:{title:"Word choice",remarks:[
+    "Vocabulary is very limited and repetitive, with the same basic words appearing over and over.",
+    "Vocabulary is simple and adequate but lacks precision; words like 'nice', 'good', and 'thing' are overused.",
+    "Some varied and precise vocabulary is used, but there are missed opportunities to choose stronger words.",
+    "Word choice is rich, precise, and varied, making the writing more engaging and exact."
+  ]}
+};
+
+var ESSAY_SHARED = {
+  support:{title:"Supporting details & elaboration",remarks:[
+    "Claims are made with no supporting details, examples, or explanation.",
+    "Some details or examples are given but remain general and are not explained or connected back to the point being made.",
+    "Most points are supported with relevant details or examples, though the elaboration sometimes stays surface-level.",
+    "Every point is backed by specific, well-explained details or examples that deepen the reader's understanding."
+  ]},
+  grammar:{title:"Grammar & sentence structure",remarks:[
+    "Frequent grammar errors and repetitive simple sentences make the writing difficult to read.",
+    "Basic sentence structures are mostly accurate, but errors appear whenever more complex sentences are attempted.",
+    "Sentence structures are mostly accurate and somewhat varied, with occasional errors in complex constructions.",
+    "Sentences are grammatically accurate and purposefully varied in length and structure to support meaning."
+  ]},
+  coherence:{title:"Coherence & clarity",remarks:[
+    "Ideas jump between paragraphs with no transitions, and the overall piece is very hard to follow.",
+    "Some transitions are used, but the connections between paragraphs or ideas are often unclear or missing.",
+    "Transitions link most paragraphs and ideas clearly, though a few connections require re-reading.",
+    "Transitions and clear signposting guide the reader smoothly through the essay from start to finish."
+  ]},
+  vocab:{title:"Vocabulary & word choice",remarks:[
+    "Vocabulary is very limited and repetitive, relying on the same basic words throughout.",
+    "Vocabulary is adequate but simple, with frequent overuse of vague words like 'thing', 'good', or 'a lot'.",
+    "Vocabulary is generally varied and appropriate, with occasional missed opportunities for more precise wording.",
+    "Vocabulary is precise, varied, and well-suited to academic writing, strengthening the essay overall."
+  ]}
+};
+
+/* ---------- paragraph type-specific criteria (opening / development / conclusion) ---------- */
+var PARA_TYPE_DATA = {
+  "Narrative":{
+    opening:{title:"Topic sentence",remarks:[
+      "No topic sentence, or it is completely off-topic. The reader has no idea what the story will be about.",
+      "A topic sentence exists but does not mention when, where, or what the story is about.",
+      "The topic sentence introduces the story and gives some context, but does not fully engage the reader.",
+      "The topic sentence hooks the reader, sets the scene clearly, and signals exactly what the paragraph is about."
+    ]},
+    development:{title:"Sequence & story development",remarks:[
+      "Events are missing or completely out of order. The story is impossible to follow.",
+      "Some events are present but the sequence is unclear; sequence words are absent or misused.",
+      "Events are mostly in order and some sequence words appear, but transitions feel abrupt.",
+      "Events flow naturally with well-chosen sequence words; the story unfolds smoothly from beginning to end."
+    ]},
+    conclusion:{title:"Concluding sentence",remarks:[
+      "No concluding sentence — the paragraph stops abruptly with no reflection.",
+      "A closing sentence is present but only repeats a story event rather than commenting on it.",
+      "The paragraph is wrapped up, but the reflection on why the experience mattered is weak or vague.",
+      "The concluding sentence reflects meaningfully on the experience and explains clearly why it was important."
+    ]}
+  },
+  "Descriptive":{
+    opening:{title:"Topic sentence",remarks:[
+      "There is no topic sentence, or it does not indicate what is being described.",
+      "A topic sentence exists but gives only a vague idea of what is being described.",
+      "The topic sentence introduces the subject, but does not yet suggest the overall impression the description will create.",
+      "The topic sentence clearly introduces the subject and hints at the overall impression the paragraph will create."
+    ]},
+    development:{title:"Descriptive organisation",remarks:[
+      "Details are listed randomly with no clear order; the reader cannot picture the subject.",
+      "Some details are given, but they are not organised spatially or by importance, making the picture unclear.",
+      "Details are mostly organised in a logical order (top to bottom, near to far), though one or two feel out of place.",
+      "Details are organised in a clear, logical order that lets the reader build a vivid, coherent picture of the subject."
+    ]},
+    conclusion:{title:"Concluding sentence",remarks:[
+      "There is no concluding sentence; the description simply stops.",
+      "The concluding sentence repeats a detail already given rather than rounding off the overall impression.",
+      "The concluding sentence rounds off the description, though the overall impression could be stated more clearly.",
+      "The concluding sentence leaves the reader with a clear, memorable overall impression of the subject."
+    ]}
+  },
+  "Expository":{
+    opening:{title:"Topic sentence",remarks:[
+      "There is no topic sentence, or it does not state what will be explained.",
+      "A topic sentence exists but does not clearly state what idea or process will be explained.",
+      "The topic sentence states what will be explained, though it could be more precise.",
+      "The topic sentence clearly and precisely states what idea or process the paragraph will explain."
+    ]},
+    development:{title:"Logical explanation",remarks:[
+      "Ideas are presented with no logical order; the explanation is confusing or incomplete.",
+      "Some ideas are explained, but the order is unclear and connections between points are missing.",
+      "Most ideas follow a logical order, though a transition or two would make the explanation clearer.",
+      "Ideas are explained in a clear, logical order with transitions that make the whole process or concept easy to follow."
+    ]},
+    conclusion:{title:"Concluding sentence",remarks:[
+      "There is no concluding sentence; the explanation stops abruptly.",
+      "The concluding sentence merely repeats the topic sentence rather than summarising the explanation.",
+      "The concluding sentence summarises the explanation, though it adds little beyond what was already said.",
+      "The concluding sentence effectively sums up the explanation and reinforces why it matters."
+    ]}
+  },
+  "Persuasive":{
+    opening:{title:"Topic sentence (position)",remarks:[
+      "There is no clear position stated, or the reader cannot tell what the writer believes.",
+      "A position is stated but it is vague or does not clearly take a side.",
+      "The topic sentence states a clear position, though it could be sharper or more specific.",
+      "The topic sentence states a clear, specific position that the rest of the paragraph will defend."
+    ]},
+    development:{title:"Reasoning & support",remarks:[
+      "No reasons are given to support the position; the paragraph consists of unsupported opinion only.",
+      "One reason is given but it is not explained or supported with any example.",
+      "Reasons are given and mostly explained, though the support could be more specific or convincing.",
+      "Clear reasons are given and well supported with specific examples or evidence that make the argument convincing."
+    ]},
+    conclusion:{title:"Concluding sentence",remarks:[
+      "There is no concluding sentence; the paragraph simply stops after the last reason.",
+      "The concluding sentence repeats the opening position without adding anything new.",
+      "The concluding sentence restates the position and reasons, though it could reinforce the argument more strongly.",
+      "The concluding sentence reinforces the position persuasively, leaving the reader convinced by the argument."
+    ]}
+  },
+  "Process":{
+    opening:{title:"Topic sentence",remarks:[
+      "There is no topic sentence, or it does not state what process will be explained.",
+      "A topic sentence exists but does not clearly state what the reader will learn to do.",
+      "The topic sentence introduces the process, though it could state the goal more clearly.",
+      "The topic sentence clearly states what process the reader will learn and why it is useful."
+    ]},
+    development:{title:"Sequence of steps",remarks:[
+      "Steps are missing or out of order; the reader could not follow the process.",
+      "Some steps are given but the order is unclear, and sequence words are absent or misused.",
+      "Steps are mostly in a logical order with some sequence words, though a step or transition may be missing.",
+      "Steps are presented in a clear, logical order with precise sequence words that make the process easy to follow."
+    ]},
+    conclusion:{title:"Concluding sentence",remarks:[
+      "There is no concluding sentence; the paragraph ends abruptly after the last step.",
+      "The concluding sentence repeats a step rather than confirming the process is complete.",
+      "The concluding sentence confirms the process is complete, though it could add a helpful final tip.",
+      "The concluding sentence confirms completion and adds a useful final tip or expected result."
+    ]}
+  },
+  "Compare & Contrast":{
+    opening:{title:"Topic sentence",remarks:[
+      "There is no topic sentence, or it does not name the two things being compared.",
+      "A topic sentence names the two things being compared, but not what will be compared about them.",
+      "The topic sentence names the two subjects and hints at the basis for comparison, though it could be more precise.",
+      "The topic sentence clearly names the two subjects and precisely states the basis on which they will be compared."
+    ]},
+    development:{title:"Points of comparison",remarks:[
+      "No clear points of comparison are made; the two subjects are described separately with no real comparison.",
+      "One point of comparison is made, but it is not developed or supported with detail.",
+      "Several points of comparison are made and mostly supported, though the organisation could be clearer.",
+      "Clear points of comparison are made and well supported, with a logical organisation (point-by-point or subject-by-subject)."
+    ]},
+    conclusion:{title:"Concluding sentence",remarks:[
+      "There is no concluding sentence; the comparison simply stops.",
+      "The concluding sentence repeats a point already made rather than summing up the comparison.",
+      "The concluding sentence sums up the comparison, though it could state a clearer overall judgement.",
+      "The concluding sentence sums up the comparison and offers a clear, well-reasoned overall judgement."
+    ]}
+  },
+  "Cause & Effect":{
+    opening:{title:"Topic sentence",remarks:[
+      "There is no topic sentence, or it does not identify the cause-and-effect relationship being explained.",
+      "A topic sentence exists but does not clearly identify the cause or the effect being discussed.",
+      "The topic sentence identifies the cause-and-effect relationship, though it could be more precise.",
+      "The topic sentence clearly and precisely identifies the cause-and-effect relationship the paragraph will explain."
+    ]},
+    development:{title:"Cause-and-effect logic",remarks:[
+      "No clear causal connection is made between ideas; the paragraph reads as a list of unrelated statements.",
+      "A causal connection is suggested but not clearly explained or logically developed.",
+      "Causal connections are mostly clear and logical, though one link could be explained more fully.",
+      "Causal connections are explained clearly and logically, showing exactly how one thing leads to another."
+    ]},
+    conclusion:{title:"Concluding sentence",remarks:[
+      "There is no concluding sentence; the paragraph stops after the last effect is mentioned.",
+      "The concluding sentence repeats a cause or effect already stated without adding insight.",
+      "The concluding sentence sums up the cause-and-effect relationship, though its wider significance could be clearer.",
+      "The concluding sentence sums up the relationship and clearly explains its wider significance."
+    ]}
+  }
+};
+
+/* ---------- essay type-specific criteria (intro / bodyDev / conclusion) ---------- */
+var ESSAY_TYPE_DATA = {
+  "Narrative":{
+    intro:{title:"Introduction & hook",remarks:[
+      "There is no introduction, or it does not set up the story; the reader has no context for what follows.",
+      "An introduction exists but gives little context about when, where, or why the story matters.",
+      "The introduction sets up the story and its context, though it does not fully hook the reader.",
+      "The introduction hooks the reader immediately and clearly sets up the context and significance of the story to come."
+    ]},
+    bodyDev:{title:"Narrative development",remarks:[
+      "Events are missing, merged together, or so out of order that the story cannot be followed.",
+      "Events are present but the sequence across paragraphs is unclear, with weak or missing transitions.",
+      "Events are mostly organised in a clear sequence across paragraphs, though a transition or two feels abrupt.",
+      "Events unfold in a clear, well-paced sequence across paragraphs, with transitions that keep the story flowing naturally."
+    ]},
+    conclusion:{title:"Conclusion",remarks:[
+      "There is no conclusion; the essay simply stops after the last event.",
+      "The conclusion repeats the final event rather than reflecting on its significance.",
+      "The conclusion reflects on the experience, though the significance could be expressed more clearly.",
+      "The conclusion reflects meaningfully on the experience and makes clear why it mattered to the writer."
+    ]}
+  },
+  "Descriptive":{
+    intro:{title:"Introduction & overall impression",remarks:[
+      "There is no introduction, or it does not indicate what is being described.",
+      "An introduction exists but gives only a vague sense of the subject being described.",
+      "The introduction introduces the subject and hints at an overall impression, though it could be more vivid.",
+      "The introduction vividly introduces the subject and establishes a clear overall impression for the essay."
+    ]},
+    bodyDev:{title:"Descriptive organisation",remarks:[
+      "Details are scattered with no clear organisation across paragraphs; the reader cannot build a coherent picture.",
+      "Body paragraphs contain details, but they are not organised spatially or thematically, making the picture unclear.",
+      "Body paragraphs are mostly organised by aspect or location, though one paragraph may feel out of place.",
+      "Body paragraphs are clearly organised by aspect or location, building a vivid, coherent picture across the whole essay."
+    ]},
+    conclusion:{title:"Conclusion",remarks:[
+      "There is no conclusion; the description simply stops.",
+      "The conclusion repeats a detail already given rather than rounding off the overall impression.",
+      "The conclusion rounds off the description, though the overall impression could be stated more memorably.",
+      "The conclusion leaves the reader with a clear, memorable overall impression that ties the essay together."
+    ]}
+  },
+  "Expository":{
+    intro:{title:"Introduction & purpose statement",remarks:[
+      "There is no clear introduction or purpose statement; the reader cannot tell what will be explained.",
+      "An introduction exists but the purpose is vague or does not clearly state what will be explained.",
+      "The introduction sets up the topic and states its purpose, though it could preview the essay's structure more clearly.",
+      "The introduction engages the reader, clearly states its purpose, and previews how the explanation will be organised."
+    ]},
+    bodyDev:{title:"Body paragraph development",remarks:[
+      "Body paragraphs are missing, merged together, or so disorganised that no single idea per paragraph can be identified.",
+      "Paragraphs exist but often contain more than one main idea, or ideas are not clearly linked to the purpose.",
+      "Most paragraphs focus on one main idea connected to the purpose, though one or two feel underdeveloped or off-topic.",
+      "Each paragraph develops one clear idea that directly supports the purpose, with logical progression from one to the next."
+    ]},
+    conclusion:{title:"Conclusion",remarks:[
+      "There is no conclusion, or the essay simply stops without any closing statement.",
+      "The conclusion repeats a body point almost word for word, without adding any synthesis.",
+      "The conclusion summarises the main points, but the final synthesis is brief or generic.",
+      "The conclusion synthesises the main points and leaves the reader with a clear, useful understanding of the topic."
+    ]}
+  },
+  "Persuasive":{
+    intro:{title:"Introduction & thesis",remarks:[
+      "There is no clear introduction or thesis; the reader cannot tell what position or topic the essay will address.",
+      "An introduction is present but the thesis is vague, hidden, or does not clearly state the essay's main position.",
+      "The introduction sets up the topic and states a thesis, though it does not fully preview the essay's structure.",
+      "The introduction engages the reader, clearly states a precise thesis, and previews how the essay will be organised."
+    ]},
+    bodyDev:{title:"Body paragraph development",remarks:[
+      "Body paragraphs are missing, merged together, or so disorganised that no single idea per paragraph can be identified.",
+      "Paragraphs exist but often contain more than one main idea, or ideas are not clearly linked to the thesis.",
+      "Most paragraphs focus on one main idea connected to the thesis, though one or two feel underdeveloped or off-topic.",
+      "Each paragraph develops one clear idea that directly supports the thesis, with logical progression from one to the next."
+    ]},
+    conclusion:{title:"Conclusion",remarks:[
+      "There is no conclusion, or the essay simply stops without any closing statement.",
+      "The conclusion repeats the thesis or a body point almost word for word, without adding any reflection.",
+      "The conclusion summarises the main points, but the final reflection on their significance is brief or generic.",
+      "The conclusion synthesises the main points and leaves the reader with a meaningful final reflection or implication."
+    ]}
+  },
+  "Process":{
+    intro:{title:"Introduction & goal",remarks:[
+      "There is no introduction, or it does not state what process the essay will explain.",
+      "An introduction exists but does not clearly state the goal of the process or why it is useful.",
+      "The introduction states the process and its goal, though it could better prepare the reader for the stages ahead.",
+      "The introduction clearly states the process, its goal, and previews the stages the essay will explain."
+    ]},
+    bodyDev:{title:"Stages of the process",remarks:[
+      "Stages are missing, merged together, or so disorganised that the process cannot be followed.",
+      "Stages are described across paragraphs, but the order is unclear and transitions between stages are weak.",
+      "Most stages are organised in a clear order across paragraphs, though a transition or step may be missing.",
+      "Stages are organised into clear paragraphs with strong transitions, making the whole process easy to follow and repeat."
+    ]},
+    conclusion:{title:"Conclusion",remarks:[
+      "There is no conclusion; the essay stops after the last stage.",
+      "The conclusion repeats a stage rather than confirming the process is complete.",
+      "The conclusion confirms the process is complete, though it could add a useful final tip or expected outcome.",
+      "The conclusion confirms completion and adds a useful final tip or clear statement of the expected outcome."
+    ]}
+  },
+  "Compare & Contrast":{
+    intro:{title:"Introduction & basis for comparison",remarks:[
+      "There is no introduction, or it does not name the two subjects being compared.",
+      "An introduction names the two subjects, but not the basis on which they will be compared.",
+      "The introduction names the subjects and the basis for comparison, though it could preview the essay's organisation more clearly.",
+      "The introduction clearly names the subjects, states the basis for comparison, and previews how the essay is organised."
+    ]},
+    bodyDev:{title:"Points of comparison",remarks:[
+      "No clear points of comparison are developed across paragraphs; the two subjects are described separately.",
+      "Some points of comparison are made, but they are not consistently developed across both subjects.",
+      "Several points of comparison are developed and mostly consistent, though the organisation could be clearer.",
+      "Clear points of comparison are consistently developed across both subjects, with a logical, easy-to-follow organisation."
+    ]},
+    conclusion:{title:"Conclusion",remarks:[
+      "There is no conclusion; the comparison simply stops.",
+      "The conclusion repeats a point already made rather than synthesising the comparison.",
+      "The conclusion sums up the comparison, though the overall judgement could be stated more clearly.",
+      "The conclusion synthesises the comparison and offers a clear, well-reasoned overall judgement."
+    ]}
+  },
+  "Cause & Effect":{
+    intro:{title:"Introduction & phenomenon",remarks:[
+      "There is no introduction, or it does not identify the phenomenon whose causes and effects will be explained.",
+      "An introduction exists but does not clearly identify the causes or effects to be discussed.",
+      "The introduction identifies the phenomenon and its causes or effects, though it could preview the essay's organisation more clearly.",
+      "The introduction clearly identifies the phenomenon and previews how its causes and effects will be organised."
+    ]},
+    bodyDev:{title:"Causal development",remarks:[
+      "No clear causal connections are developed across paragraphs; ideas read as an unrelated list.",
+      "Causal connections are suggested but not clearly explained or logically developed across paragraphs.",
+      "Causal connections are mostly clear and logically organised, though one link could be explained more fully.",
+      "Causal connections are explained clearly and logically across paragraphs, showing precisely how causes lead to effects."
+    ]},
+    conclusion:{title:"Conclusion",remarks:[
+      "There is no conclusion; the essay stops after the last effect is mentioned.",
+      "The conclusion repeats a cause or effect already stated without adding insight.",
+      "The conclusion sums up the cause-and-effect relationship, though its wider significance could be clearer.",
+      "The conclusion sums up the relationship and clearly explains its wider significance."
+    ]}
+  }
+};
+
+/* ---------- overall band summaries (scale-independent) ---------- */
+var PARAGRAPH_BAND_SUMMARY={
+  "Excellent":"Outstanding work. Every element of the paragraph is fully realised \u2014 strong organisation, well-chosen details, accurate grammar, and precise vocabulary. Only the smallest refinements would make it perfect.",
+  "Good":"Good work. The paragraph is clear and well-structured. Focus on enriching your word choice or adding more specific details to reach the highest level.",
+  "Satisfactory":"Satisfactory. The paragraph is there but needs more development. Choose stronger, more specific words, add more supporting detail, and tighten the organisation.",
+  "Needs work":"Needs improvement. Start with a clear topic sentence, develop your ideas in a logical order, and aim for simple but precise word choices.",
+  "Insufficient":"This paragraph does not yet meet the requirements. Review a model paragraph of this type and rewrite using the checklist step by step."
+};
+var ESSAY_BAND_SUMMARY={
+  "Excellent":"Outstanding work. Every element of the essay is fully realised \u2014 a strong introduction, tightly developed body paragraphs, accurate and varied grammar, and a conclusion that leaves a lasting impression.",
+  "Good":"Good work. The essay is clear and well-structured. Focus on sharpening your vocabulary or adding more specific supporting details to reach the highest level.",
+  "Satisfactory":"Satisfactory. The essay is there but needs more development. Strengthen your supporting details and vary your sentence structures.",
+  "Needs work":"Needs improvement. Start with a clear central idea, develop one point per paragraph, and connect your ideas with clear transitions.",
+  "Insufficient":"This essay does not yet meet the requirements. Review a model essay of this type and rewrite using the checklist step by step."
+};
+
+var COLOR_PAIRS=[
+  ["var(--blue-bg)","var(--blue-tx)"],
+  ["var(--lavender-bg)","var(--lavender-tx)"],
+  ["var(--peach-bg)","var(--peach-tx)"],
+  ["var(--butter-bg)","var(--butter-tx)"],
+  ["var(--green-bg)","var(--green-tx)"],
+  ["var(--blush-bg)","var(--blush-tx)"],
+  ["var(--mint-bg)","var(--mint-tx)"]
+];
+
+function buildCriteria(tool,genre){
+  if(tool==="paragraph"){
+    var td=PARA_TYPE_DATA[genre], sh=PARA_SHARED;
+    return [
+      {id:"opening",title:td.opening.title,remarks:td.opening.remarks},
+      {id:"development",title:td.development.title,remarks:td.development.remarks},
+      {id:"details",title:sh.details.title,remarks:sh.details.remarks},
+      {id:"conclusion",title:td.conclusion.title,remarks:td.conclusion.remarks},
+      {id:"grammar",title:sh.grammar.title,remarks:sh.grammar.remarks},
+      {id:"clarity",title:sh.clarity.title,remarks:sh.clarity.remarks},
+      {id:"vocab",title:sh.vocab.title,remarks:sh.vocab.remarks}
+    ];
+  } else {
+    var etd=ESSAY_TYPE_DATA[genre], esh=ESSAY_SHARED;
+    return [
+      {id:"intro",title:etd.intro.title,remarks:etd.intro.remarks},
+      {id:"bodyDev",title:etd.bodyDev.title,remarks:etd.bodyDev.remarks},
+      {id:"support",title:esh.support.title,remarks:esh.support.remarks},
+      {id:"conclusion",title:etd.conclusion.title,remarks:etd.conclusion.remarks},
+      {id:"grammar",title:esh.grammar.title,remarks:esh.grammar.remarks},
+      {id:"coherence",title:esh.coherence.title,remarks:esh.coherence.remarks},
+      {id:"vocab",title:esh.vocab.title,remarks:esh.vocab.remarks}
+    ];
+  }
+}
+
+var scores={paragraph:{},essay:{}};
+var currentGenre={paragraph:GENRES[0],essay:GENRES[0]};
+var currentScale={paragraph:10,essay:10};
+var BAND_SUMMARY={paragraph:PARAGRAPH_BAND_SUMMARY,essay:ESSAY_BAND_SUMMARY};
+
+function initScores(){
+  ["paragraph","essay"].forEach(function(tool){
+    GENRES.forEach(function(g){
+      scores[tool][g]={};
+      buildCriteria(tool,g).forEach(function(c){ scores[tool][g][c.id]=0; });
+    });
+  });
+}
+
+function renderGenreChips(tool){
+  var row=document.getElementById("genreChips-"+tool);
+  row.innerHTML = '<span class="filter-label">Type</span>';
+  GENRES.forEach(function(g,i){
+    var b=document.createElement("button");
+    b.type="button";
+    b.className="chip type-chip"+(i===0?" active":"");
+    b.dataset.tool=tool;
+    b.dataset.genre=g;
+    b.textContent=g;
+    b.addEventListener("click", function(){ switchGenre(tool,g); });
+    row.appendChild(b);
+  });
+}
+
+function renderScaleChips(tool){
+  var row=document.getElementById("scaleChips-"+tool);
+  row.innerHTML = '<span class="filter-label">Scale</span>';
+  [5,10,20].forEach(function(s){
+    var b=document.createElement("button");
+    b.type="button";
+    b.className="chip scale-chip"+(s===10?" active":"");
+    b.dataset.tool=tool;
+    b.dataset.scale=s;
+    b.textContent="/ "+s;
+    b.addEventListener("click", function(){ switchScale(tool,s); });
+    row.appendChild(b);
+  });
+}
+
+function renderCriteria(tool){
+  var container=document.getElementById("critContainer-"+tool);
+  container.innerHTML="";
+  var genre=currentGenre[tool];
+  var lvLabels=["Insufficient","Developing","Satisfactory","Excellent"];
+  buildCriteria(tool,genre).forEach(function(c,idx){
+    var pair=COLOR_PAIRS[idx % COLOR_PAIRS.length];
+    var starsHtml="";
+    for(var i=1;i<=4;i++){
+      starsHtml+='<button type="button" class="star" id="st-'+tool+'-'+c.id+'-'+i+'" data-tool="'+tool+'" data-id="'+c.id+'" data-val="'+i+'" title="'+lvLabels[i-1]+'">'+i+'</button>';
+    }
+    var card=document.createElement("div");
+    card.className="crit-card";
+    card.innerHTML=
+      '<div class="crit-top">'
+        +'<span class="crit-title">'+c.title+'</span>'
+        +'<span class="crit-badge" style="background:'+pair[0]+';color:'+pair[1]+'">1\u20134</span>'
+      +'</div>'
+      +'<div class="level-label" id="lv-'+tool+'-'+c.id+'">Select a level</div>'
+      +'<div class="star-row">'+starsHtml+'</div>'
+      +'<div class="remark-box" id="rem-'+tool+'-'+c.id+'">Click a level above to see feedback for this criterion.</div>'
+      +'<button type="button" class="copy-mini" data-tool="'+tool+'" data-id="'+c.id+'">Copy remark</button>';
+    container.appendChild(card);
+  });
+  container.querySelectorAll(".star").forEach(function(s){
+    s.addEventListener("click", function(){
+      pick(this.dataset.tool, this.dataset.id, parseInt(this.dataset.val,10));
+    });
+  });
+  container.querySelectorAll(".copy-mini").forEach(function(b){
+    b.addEventListener("click", function(){
+      var txt=document.getElementById("rem-"+this.dataset.tool+"-"+this.dataset.id).textContent;
+      copyText(txt, this);
+    });
+  });
+  buildCriteria(tool,genre).forEach(function(c){
+    if(scores[tool][genre][c.id]>0) syncCard(tool,c.id);
+  });
+}
+
+function syncCard(tool,id){
+  var genre=currentGenre[tool];
+  var crit=buildCriteria(tool,genre);
+  var idx=-1, c=null;
+  crit.forEach(function(x,i){ if(x.id===id){c=x;idx=i;} });
+  var val=scores[tool][genre][id];
+  var pair=COLOR_PAIRS[idx % COLOR_PAIRS.length];
+  var lvLabels=["Insufficient","Developing","Satisfactory","Excellent"];
+  for(var i=1;i<=4;i++){
+    var s=document.getElementById("st-"+tool+"-"+id+"-"+i);
+    if(!s) continue;
+    if(i<=val){s.style.background=pair[0]; s.style.color=pair[1]; s.style.borderColor=pair[1];}
+    else{s.style.background=""; s.style.color=""; s.style.borderColor="";}
+  }
+  var lv=document.getElementById("lv-"+tool+"-"+id);
+  var rem=document.getElementById("rem-"+tool+"-"+id);
+  if(val>0){
+    lv.textContent="Level "+val+" \u2014 "+lvLabels[val-1];
+    rem.textContent=c.remarks[val-1];
+  } else {
+    lv.textContent="Select a level";
+    rem.textContent="Click a level above to see feedback for this criterion.";
+  }
+}
+
+function pick(tool,id,val){
+  var genre=currentGenre[tool];
+  scores[tool][genre][id]=val;
+  syncCard(tool,id);
+  updateTotal(tool);
+}
+
+function updateTotal(tool){
+  var genre=currentGenre[tool];
+  var scale=currentScale[tool];
+  var crit=buildCriteria(tool,genre);
+  var raw=0;
+  crit.forEach(function(c){ raw+=scores[tool][genre][c.id]; });
+  var pct=raw/(crit.length*4);
+  var out=Math.round(pct*scale);
+  document.getElementById("total-"+tool).textContent=out;
+  document.getElementById("scaleLabel-"+tool).textContent=scale;
+  document.getElementById("prog-"+tool).style.width=(pct*100)+"%";
+  var g,bg,tx;
+  if(pct>=0.9){g="Excellent";bg="var(--green-bg)";tx="var(--green-tx)";}
+  else if(pct>=0.7){g="Good";bg="var(--blue-bg)";tx="var(--blue-tx)";}
+  else if(pct>=0.5){g="Satisfactory";bg="var(--butter-bg)";tx="var(--butter-tx)";}
+  else if(pct>=0.3){g="Needs work";bg="var(--peach-bg)";tx="var(--peach-tx)";}
+  else{g="Insufficient";bg="var(--blush-bg)";tx="var(--blush-tx)";}
+  var pill=document.getElementById("gpill-"+tool);
+  pill.textContent=g; pill.style.background=bg; pill.style.color=tx;
+  var allDone=crit.every(function(c){return scores[tool][genre][c.id]>0;});
+  var box=document.getElementById("overallSummary-"+tool);
+  var summary=BAND_SUMMARY[tool];
+  if(allDone){
+    box.style.display="block";
+    box.style.background=bg; box.style.color=tx;
+    box.innerHTML="<strong>Overall remark ("+out+"/"+scale+" \u2014 "+g+"):</strong><br>"+summary[g];
+  } else {
+    box.style.display="none";
+  }
+}
+
+function switchGenre(tool,genre){
+  currentGenre[tool]=genre;
+  document.querySelectorAll('.type-chip[data-tool="'+tool+'"]').forEach(function(c){
+    c.classList.toggle("active", c.dataset.genre===genre);
+  });
+  renderCriteria(tool);
+  updateTotal(tool);
+}
+
+function switchScale(tool,scale){
+  currentScale[tool]=scale;
+  document.querySelectorAll('.scale-chip[data-tool="'+tool+'"]').forEach(function(c){
+    c.classList.toggle("active", parseInt(c.dataset.scale,10)===scale);
+  });
+  updateTotal(tool);
+}
+
+function resetTool(tool){
+  var genre=currentGenre[tool];
+  Object.keys(scores[tool][genre]).forEach(function(id){ scores[tool][genre][id]=0; });
+  renderCriteria(tool);
+  updateTotal(tool);
+}
+
+function copyFullReport(tool){
+  var genre=currentGenre[tool];
+  var crit=buildCriteria(tool,genre);
+  var lines=[];
+  lines.push(genre+" "+(tool==="paragraph"?"Paragraph":"Essay")+" \u2014 Writing Assessment");
+  crit.forEach(function(c){
+    var val=scores[tool][genre][c.id];
+    if(val>0){ lines.push(c.title+": Level "+val+"/4 \u2014 "+c.remarks[val-1]); }
+  });
+  var total=document.getElementById("total-"+tool).textContent;
+  var scaleTxt=document.getElementById("scaleLabel-"+tool).textContent;
+  var grade=document.getElementById("gpill-"+tool).textContent;
+  lines.push("Total score: "+total+"/"+scaleTxt+" ("+grade+")");
+  var summaryEl=document.getElementById("overallSummary-"+tool);
+  if(summaryEl.style.display==="block"){ lines.push(summaryEl.textContent); }
+  copyText(lines.join("\n"), document.getElementById("copyAllBtn-"+tool));
+}
+
+/* ========================================================================
+   TOPIC BANK — generated from seed topics x tiered templates so the bank
+   covers 7 genres x 2 writing forms x 3 tiers x 24 seeds = 1,008 prompts.
+   ======================================================================== */
+var SEED_BANK = {
+  "Narrative":[
+    "a time you helped someone in need","your first day at a new school","a family celebration you will always remember",
+    "a mistake that taught you an important lesson","a moment you felt truly proud of yourself","an unexpected surprise that changed your day",
+    "a memorable trip with your family or friends","a time you overcame a fear","a friendship that changed over time",
+    "a challenge you faced and how you dealt with it","a rainy day that turned into an adventure","a piece of advice from a grandparent that stayed with you",
+    "a time you got lost and found your way back","a competition you took part in","a gift you will never forget",
+    "the day you learned to ride a bike or swim","a time you had to make a difficult decision","a moment when a stranger's kindness surprised you",
+    "the best birthday you have ever had","a time you worked as part of a team to reach a goal","an experience that made you see your community differently",
+    "a time you had to apologise to someone","a memorable holiday or festival celebration","an experience abroad or in an unfamiliar place"
+  ],
+  "Descriptive":[
+    "your bedroom or favourite corner of your home","a person in your family","your favourite place to relax",
+    "a busy market or street scene","a place that holds strong memories for you","a person you admire",
+    "your hometown or neighbourhood","a natural landscape that impressed you","your favourite season and how it feels",
+    "an object that is special to you","a meal that reminds you of home","a teacher who influenced you",
+    "a festival or celebration in your culture","the view from your window","a pet or animal you know well",
+    "a traditional dish from your region","your school or classroom","a piece of clothing that means something to you",
+    "a photograph that tells a story","a place you would love to visit","the sounds and smells of your morning routine",
+    "an old building or historical site near you","a friend's personality and character","your favourite time of day"
+  ],
+  "Expository":[
+    "how to prepare your favourite meal","the steps in your morning routine","how a smartphone has changed daily life",
+    "the rules of a game or sport you enjoy","how students can manage their time better","the water cycle",
+    "how social media works","the process of learning a new language","how to stay healthy as a student",
+    "the history of a place you know well","how recycling helps the environment","the benefits of reading books",
+    "how online learning has changed education","the causes of traffic jams in cities","how a plant grows from a seed",
+    "the importance of sleep for teenagers","how to prepare for an exam","the effects of screen time on young people",
+    "how public transport works in your city","the steps to starting a small business","how climate change affects daily weather",
+    "the process of applying to university","how libraries support a community","the benefits of learning a musical instrument"
+  ],
+  "Persuasive":[
+    "whether students should wear school uniforms","whether homework should be given every day","whether social media does more harm than good",
+    "whether smartphones should be allowed in classrooms","whether university education should be free","whether artificial intelligence should be used in classrooms",
+    "whether video games are good or bad for young people","whether students should be allowed to choose their own subjects","whether public transport should be free for students",
+    "whether zoos are ethical","whether fast food should be taxed more heavily","whether teenagers should have part-time jobs",
+    "whether exams are the best way to measure learning","whether cities should ban private cars in the centre","whether space exploration is worth the cost",
+    "whether social media platforms should verify users' ages","whether students should learn a foreign language from primary school","whether plastic bags should be banned",
+    "whether online classes are as effective as in-person classes","whether professional athletes are paid too much","whether it should be mandatory to recycle at home",
+    "whether traditional books are better than e-books","whether governments should invest more in renewable energy","whether curfews for teenagers are a good idea"
+  ],
+  "Process":[
+    "how to make a cup of tea or coffee","how to plan a birthday party","how to study effectively for an exam",
+    "how to set up a new phone","how to plant and care for a small garden","how to write a formal email",
+    "how to pack for a trip","how to bake a simple cake","how to create a weekly study schedule",
+    "how to change a flat tyre","how to set up a group project successfully","how to learn new vocabulary effectively",
+    "how to prepare for a job interview","how to organise a school event","how to build a healthy morning routine",
+    "how to save money as a student","how to give an effective class presentation","how to train for a 5-kilometre run",
+    "how to make a traditional dish from your culture","how to set up a study group","how to use a library catalogue",
+    "how to prepare a simple budget","how to care for a new pet","how to write a strong paragraph"
+  ],
+  "Compare & Contrast":[
+    "studying alone and studying in a group","life in a city and life in the countryside","traditional classrooms and online classes",
+    "two languages you know","your generation and your parents' generation","reading a book and watching its film adaptation",
+    "two cities or countries you have visited","two subjects you study at school","public schools and private schools",
+    "two social media platforms you use","walking and cycling as ways to get around","your favourite two seasons",
+    "two forms of exercise you enjoy","two teachers who taught you differently","written letters and instant messaging",
+    "a relaxing holiday and an adventurous holiday","homemade food and restaurant food","two hobbies you could take up",
+    "renewable energy and fossil fuels","two learning styles: visual and auditory","team sports and individual sports",
+    "two decades in fashion or technology","print newspapers and online news","two ways of celebrating a special occasion"
+  ],
+  "Cause & Effect":[
+    "why students lose motivation during the school year","why traffic jams happen in big cities","why some students perform better under pressure",
+    "why plastic pollution is increasing in the oceans","why teenagers spend so much time on their phones","why some languages disappear over time",
+    "why remote work has become more common","why stress levels rise before exams","why fast fashion has become so popular",
+    "why bilingual children often perform well academically","why some cities suffer from air pollution","why friendships change after high school",
+    "why streaming services have changed how people watch television","why deforestation affects local climates","why students procrastinate on assignments",
+    "why tourism can both help and harm local communities","why sleep deprivation affects academic performance","why some countries have ageing populations",
+    "why online shopping has grown so quickly","why misinformation spreads easily on social media","why urban areas are becoming more crowded",
+    "why some students prefer distance learning","why food prices have risen in recent years","why volunteering benefits both individuals and communities"
+  ]
+};
+
+var TOPIC_TEMPLATES = {
+  "Narrative":{
+    paragraph:{foundational:"Write a paragraph about {seed}. Say what happened first, next, and last.",
+      developing:"Write a paragraph about {seed}, showing how it started and how it ended.",
+      advanced:"Write a paragraph about {seed}, using vivid sensory and emotional details and a thoughtful concluding reflection."},
+    essay:{foundational:"Write a short essay about {seed}, with a clear beginning, middle, and end.",
+      developing:"Write an essay about {seed}, organising your ideas into an introduction, two body paragraphs, and a conclusion.",
+      advanced:"Write a personal narrative essay about {seed}, using vivid imagery and a meaningful reflection on why the experience mattered."}
+  },
+  "Descriptive":{
+    paragraph:{foundational:"Write a paragraph describing {seed} using simple sentences about what you see.",
+      developing:"Write a paragraph describing {seed}, appealing to at least three senses.",
+      advanced:"Write a paragraph describing {seed}, using figurative language and precise, varied vocabulary."},
+    essay:{foundational:"Write a short descriptive essay about {seed}, organised from one clear point of view.",
+      developing:"Write a descriptive essay about {seed}, organising details spatially or by importance across several paragraphs.",
+      advanced:"Write a descriptive essay about {seed}, using figurative language, precise sensory detail, and a unifying impression throughout."}
+  },
+  "Expository":{
+    paragraph:{foundational:"Write a paragraph explaining {seed} in simple, clear steps.",
+      developing:"Write a paragraph explaining {seed}, organising your ideas in a logical order.",
+      advanced:"Write a paragraph explaining {seed}, using precise vocabulary and clear transitions between ideas."},
+    essay:{foundational:"Write a short essay explaining {seed}, with an introduction and a conclusion.",
+      developing:"Write an expository essay explaining {seed}, using clear topic sentences for each body paragraph.",
+      advanced:"Write an expository essay analysing {seed}, supporting each point with specific evidence or examples."}
+  },
+  "Persuasive":{
+    paragraph:{foundational:"Write a paragraph giving your opinion on {seed}. Give one clear reason.",
+      developing:"Write a paragraph giving your opinion on {seed}, supporting it with two reasons.",
+      advanced:"Write a paragraph arguing a clear position on {seed}, supporting it with reasoning and addressing one counterpoint."},
+    essay:{foundational:"Write a short essay giving your opinion on {seed}, with an introduction, one reason, and a conclusion.",
+      developing:"Write an essay arguing your position on {seed}, using an introduction, two body paragraphs, and a conclusion.",
+      advanced:"Write an argumentative essay on {seed}, supporting your position with evidence and addressing a counterargument before your conclusion."}
+  },
+  "Process":{
+    paragraph:{foundational:"Write a paragraph explaining {seed}, using simple steps in order.",
+      developing:"Write a paragraph explaining {seed}, using clear sequence words to connect each step.",
+      advanced:"Write a paragraph explaining {seed}, anticipating one common mistake and how to avoid it."},
+    essay:{foundational:"Write a short essay explaining {seed}, step by step.",
+      developing:"Write a process essay explaining {seed}, organising the steps into clear stages across several paragraphs.",
+      advanced:"Write a process essay explaining {seed}, justifying why each stage matters and addressing a common difficulty learners face."}
+  },
+  "Compare & Contrast":{
+    paragraph:{foundational:"Write a paragraph comparing {seed}, using simple sentences to show one similarity and one difference.",
+      developing:"Write a paragraph comparing {seed}, organising your ideas by point of comparison.",
+      advanced:"Write a paragraph comparing {seed}, using precise vocabulary and clear comparative language throughout."},
+    essay:{foundational:"Write a short essay comparing {seed}, with one paragraph for similarities and one for differences.",
+      developing:"Write a compare-and-contrast essay about {seed}, organising your essay either point-by-point or block-by-block.",
+      advanced:"Write a compare-and-contrast essay analysing {seed}, weighing which is more suitable in a specific context you define."}
+  },
+  "Cause & Effect":{
+    paragraph:{foundational:"Write a paragraph explaining one cause and one effect of {seed}.",
+      developing:"Write a paragraph explaining the main causes and effects of {seed}, in a logical order.",
+      advanced:"Write a paragraph analysing the causes and effects of {seed}, showing clear logical connections between them."},
+    essay:{foundational:"Write a short essay explaining a cause and an effect of {seed}.",
+      developing:"Write a cause-and-effect essay about {seed}, dedicating separate paragraphs to causes and effects.",
+      advanced:"Write a cause-and-effect essay analysing {seed}, distinguishing immediate causes from deeper underlying ones."}
+  }
+};
+
+var SCAFFOLD={
+  foundational:"Pair with sentence starters, a word bank, and a simple graphic organiser.",
+  developing:"Provide an outline template and a partial model paragraph or essay.",
+  advanced:"Remove scaffolds; add a challenge such as a counterargument, figurative language, or a synthesis question."
+};
+var TIER_META={
+  foundational:{label:"Foundational", bg:"var(--butter-bg)", tx:"var(--butter-tx)"},
+  developing:{label:"Developing", bg:"var(--blush-bg)", tx:"var(--blush-tx)"},
+  advanced:{label:"Advanced", bg:"var(--lavender-bg)", tx:"var(--lavender-tx)"}
+};
+
+var TOPICS=[];
+(function buildTopics(){
+  GENRES.forEach(function(genre){
+    SEED_BANK[genre].forEach(function(seed){
+      ["paragraph","essay"].forEach(function(tool){
+        ["foundational","developing","advanced"].forEach(function(tier){
+          var tmpl=TOPIC_TEMPLATES[genre][tool][tier];
+          TOPICS.push({tool:tool, genre:genre, tier:tier, prompt:tmpl.replace("{seed}",seed)});
+        });
+      });
+    });
+  });
+})();
+
+var topicState={toolFilter:"all", genreFilter:"all", tierFilter:"all"};
+
+function renderGenreFilterChips(){
+  var row=document.getElementById("genreFilterRow");
+  row.innerHTML='<span class="filter-label">Genre</span><button type="button" class="chip active" data-group="genre" data-value="all">All</button>';
+  GENRES.forEach(function(g){
+    var b=document.createElement("button");
+    b.type="button"; b.className="chip"; b.dataset.group="genre"; b.dataset.value=g; b.textContent=g;
+    row.appendChild(b);
+  });
+  row.querySelectorAll(".chip").forEach(function(chip){
+    chip.addEventListener("click", function(){
+      topicState.genreFilter=this.dataset.value;
+      row.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("active", c===chip); });
+      renderTopics();
+    });
+  });
+}
+
+function goToRubric(tool,genre){
+  showPanel(tool==="paragraph" ? "paragraphTool" : "essayTool");
+  switchGenre(tool,genre);
+}
+
+function renderTopics(){
+  var grid=document.getElementById("topicGrid");
+  var filtered=TOPICS.filter(function(t){
+    return (topicState.toolFilter==="all"||t.tool===topicState.toolFilter)
+       && (topicState.genreFilter==="all"||t.genre===topicState.genreFilter)
+       && (topicState.tierFilter==="all"||t.tier===topicState.tierFilter);
+  });
+  document.getElementById("resultsCount").textContent=filtered.length+" prompt"+(filtered.length===1?"":"s")+" match these filters (of "+TOPICS.length+" total).";
+  grid.innerHTML="";
+  if(filtered.length===0){
+    grid.innerHTML='<div class="empty-state">No topics match these filters yet. Try widening your search.</div>';
+    return;
+  }
+  var capped=filtered.length>150 ? filtered.slice(0,150) : filtered;
+  if(filtered.length>150){
+    var note=document.createElement("p");
+    note.className="results-count";
+    note.style.gridColumn="1/-1";
+    note.textContent="Showing the first 150 of "+filtered.length+" matches \u2014 narrow the filters above to see more specific results.";
+    grid.appendChild(note);
+  }
+  capped.forEach(function(t,idx){
+    var tm=TIER_META[t.tier];
+    var typeBg = t.tool==="paragraph" ? "var(--blue-bg)" : "var(--green-bg)";
+    var typeTx = t.tool==="paragraph" ? "var(--blue-tx)" : "var(--green-tx)";
+    var typeLabel = t.tool==="paragraph" ? "Paragraph" : "Essay";
+    var card=document.createElement("div");
+    card.className="topic-card";
+    card.innerHTML=
+      '<div class="topic-badges">'
+        +'<span class="badge-sm" style="background:'+typeBg+';color:'+typeTx+'">'+typeLabel+'</span>'
+        +'<span class="badge-sm" style="background:'+tm.bg+';color:'+tm.tx+'">'+tm.label+'</span>'
+        +'<span class="badge-sm" style="background:transparent;color:var(--ink-soft);border:1px solid var(--border)">'+t.genre+'</span>'
+      +'</div>'
+      +'<p class="topic-prompt">'+t.prompt+'</p>'
+      +'<p class="topic-scaffold"><strong>DI tip: </strong>'+SCAFFOLD[t.tier]+'</p>'
+      +'<div class="topic-actions">'
+        +'<button type="button" class="copy-mini" data-idx="'+idx+'">Copy prompt</button>'
+        +'<button type="button" class="copy-mini" data-rubric-idx="'+idx+'">Score with rubric \u2192</button>'
+      +'</div>';
+    grid.appendChild(card);
+  });
+  grid.querySelectorAll("[data-idx]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      copyText(capped[parseInt(this.dataset.idx,10)].prompt, this);
+    });
+  });
+  grid.querySelectorAll("[data-rubric-idx]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var t=capped[parseInt(this.dataset.rubricIdx,10)];
+      goToRubric(t.tool, t.genre);
+    });
+  });
+}
+
+/* ---------- shared helpers ---------- */
+function legacyCopy(txt){
+  var ta=document.createElement("textarea");
+  ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+}
+function copyText(txt, btn){
+  function done(){
+    if(!btn) return;
+    var original=btn.textContent;
+    btn.textContent="Copied \u2713";
+    btn.classList.add("done");
+    setTimeout(function(){ btn.textContent=original; btn.classList.remove("done"); },1600);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(function(){ legacyCopy(txt); done(); });
+  } else {
+    legacyCopy(txt); done();
+  }
+}
+
+function showPanel(name){
+  document.querySelectorAll(".panel").forEach(function(p){
+    p.classList.toggle("active", p.id==="panel-"+name);
+  });
+  document.querySelectorAll(".nav-link").forEach(function(b){
+    b.classList.toggle("active", b.dataset.panel===name);
+  });
+  var hero=document.getElementById("heroFull");
+  if(hero){ hero.style.display = (name==="home") ? "flex" : "none"; }
+  window.scrollTo({top:0, behavior:"auto"});
+}
+
+/* ---------- reveal-on-scroll ---------- */
+function setupReveal(){
+  var els=document.querySelectorAll(".reveal");
+  if(!("IntersectionObserver" in window)){
+    els.forEach(function(el){ el.classList.add("revealed"); });
+    return;
+  }
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("revealed");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  els.forEach(function(el){ obs.observe(el); });
+}
+
+/* ---------- animated counters ---------- */
+function animateCounter(el){
+  var target=parseInt(el.dataset.target,10);
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduced || !("requestAnimationFrame" in window)){
+    el.textContent=target.toLocaleString();
+    return;
+  }
+  var duration=1200, startTime=null;
+  function step(ts){
+    if(!startTime) startTime=ts;
+    var progress=Math.min((ts-startTime)/duration,1);
+    var eased=1-Math.pow(1-progress,3);
+    el.textContent=Math.round(eased*target).toLocaleString();
+    if(progress<1){ requestAnimationFrame(step); } else { el.textContent=target.toLocaleString(); }
+  }
+  requestAnimationFrame(step);
+}
+function setupCounters(){
+  var nums=document.querySelectorAll(".stat-num");
+  if(!("IntersectionObserver" in window)){
+    nums.forEach(function(el){ animateCounter(el); });
+    return;
+  }
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ animateCounter(entry.target); obs.unobserve(entry.target); }
+    });
+  }, {threshold:0.5});
+  nums.forEach(function(el){ obs.observe(el); });
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  initScores();
+  renderGenreChips("paragraph");
+  renderScaleChips("paragraph");
+  renderCriteria("paragraph");
+  updateTotal("paragraph");
+  renderGenreChips("essay");
+  renderScaleChips("essay");
+  renderCriteria("essay");
+  updateTotal("essay");
+  renderGenreFilterChips();
+  renderTopics();
+  setupReveal();
+  setupCounters();
+
+  document.querySelectorAll(".nav-link").forEach(function(b){
+    b.addEventListener("click", function(){ showPanel(this.dataset.panel); });
+  });
+  document.querySelectorAll("[data-goto]").forEach(function(b){
+    b.addEventListener("click", function(){ showPanel(this.dataset.goto); });
+  });
+  document.getElementById("resetBtn-paragraph").addEventListener("click", function(){ resetTool("paragraph"); });
+  document.getElementById("resetBtn-essay").addEventListener("click", function(){ resetTool("essay"); });
+  document.getElementById("copyAllBtn-paragraph").addEventListener("click", function(){ copyFullReport("paragraph"); });
+  document.getElementById("copyAllBtn-essay").addEventListener("click", function(){ copyFullReport("essay"); });
+
+  var exploreBtn=document.getElementById("exploreFeaturesBtn");
+  var scrollCue=document.getElementById("scrollCue");
+  var featuresSection=document.getElementById("featuresSection");
+  if(exploreBtn){ exploreBtn.addEventListener("click", function(){ featuresSection.scrollIntoView({behavior:"smooth"}); }); }
+  if(scrollCue){ scrollCue.addEventListener("click", function(){ featuresSection.scrollIntoView({behavior:"smooth"}); }); }
+
+  var nav=document.getElementById("siteNav");
+  window.addEventListener("scroll", function(){
+    if(window.scrollY>40){ nav.classList.add("scrolled"); } else { nav.classList.remove("scrolled"); }
+  });
+
+  document.querySelectorAll('.chip[data-group="tool"], .chip[data-group="tier"]').forEach(function(chip){
+    chip.addEventListener("click", function(){
+      var group=chip.dataset.group;
+      topicState[group+"Filter"]=chip.dataset.value;
+      document.querySelectorAll('.chip[data-group="'+group+'"]').forEach(function(c){
+        c.classList.toggle("active", c===chip);
+      });
+      renderTopics();
+    });
+  });
+});
+</script>
+</body>
+</html>
